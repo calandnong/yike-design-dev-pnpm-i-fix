@@ -12,12 +12,12 @@ Lockfile is up-to-date, resolution step is skipped
 Packages: +796
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Packages are hard linked from the content-addressable store to the virtual store.
-  Content-addressable store is at: /Users/xianqiulong/.pnpm-store/v3
+  Content-addressable store is at: /.pnpm-store/v3
   Virtual store is at:             node_modules/.pnpm
 node_modules/.pnpm/vue-demi@0.14.5_vue@3.3.4/node_modules/vue-demi: Running postinstall script, done in 74ms
 Progress: resolved 796, reused 794, downloaded 0, added 796, done
 node_modules/.pnpm/esbuild@0.18.20/node_modules/esbuild: Running postinstall script, done in 156ms
- WARN  Failed to create bin at /Users/xianqiulong/Projects/ui-components/yike-design-dev/packages/yike-design-ui/node_modules/.bin/yike-build. The source file at /Users/xianqiulong/Projects/ui-components/yike-design-dev/build/dist/index.js does not exist.
+ WARN  Failed to create bin at /Projects/ui-components/yike-design-dev/packages/yike-design-ui/node_modules/.bin/yike-build. The source file at /Projects/ui-components/yike-design-dev/build/dist/index.js does not exist.
 
 dependencies:
 + vue 3.3.4
@@ -104,3 +104,21 @@ pnpm会在安装依赖时会先去扫描所有包的package.json中的bin进行�
 ```json
   "prepare": "pnpm --filter @yike/build build && pnpm gen:icon",
 ```
+
+**修复方案：**
+1.新增文件build/bin/index.js，内容如下：
+```javascript
+function run() {
+  return import('../dist/index.js');
+}
+
+run();
+```
+2.将build/package.json中，修改为以下内容：
+```diff
+  "bin": {
+-    "yike-build": "dist/index.js"
++    "yike-build": "bin/index.js"
+  },
+```
+3.删除所有的node_modules，运行测试即可
