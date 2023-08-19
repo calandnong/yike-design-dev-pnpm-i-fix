@@ -1,0 +1,13 @@
+{
+  "name": "bug-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prepare": "pnpm --filter @test/build run build && pnpm run test-build",
+    "test-build": "pnpm --filter @test/build run test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
