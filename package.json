@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prepare": "pnpm --filter @test/build run build && pnpm run test-build",
-    "test-build": "pnpm --filter @test/build run test"
+    "prepare": "pnpm --filter @kk/build run build && pnpm run test-build",
+    "test-build": "pnpm --filter test-ui run test"
   },
   "keywords": [],
   "author": "",
